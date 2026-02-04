@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кулинарная студия Event Kitchen | Пространство для особых поводов</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <!-- Исправленный логотип - 2 варианта на выбор -->
+
+            <!-- Вариант 1: Текстовый логотип (рекомендую) -->
+            <a href="#" class="logo">Event <span>Kitchen</span></a>
+
+            <!-- Вариант 2: Изображение логотипа (если у вас есть файл Event Kitchen on Black.png) -->
+            <!-- 
+            <a href="#" class="logo">
+                <img src="Event Kitchen on Black.png" alt="Event Kitchen" class="logo-img">
+            </a>
+            -->
+            
+            <div class="header-contacts">
+                <a href="tel:+71231233333" class="contact-link">
+                    <i class="fas fa-phone contact-icon"></i>
+                    +7 (123) 123-33-33
+                </a>
+                <a href="https://wa.me/79991234567" class="contact-link">
+                    <i class="fab fa-whatsapp contact-icon"></i>
+                    WhatsApp
+                </a>
+                <a href="https://t.me/some_link" class="contact-link">
+                    <i class="fab fa-telegram contact-icon"></i>
+                    Telegram
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Кулинарная студия и пространство для особых поводов</h1>
+                <p>Кулинарные мастер-классы, вечеринки, свидания, дни рождения, детские мастер-классы, корпоративы</p>
+                <div class="hero-buttons">
+                    <a href="#booking" class="btn">Забронировать</a>
+                    <a href="#formats" class="btn btn-outline">Подобрать формат</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Что это за место</h2>
+            <div class="about-content">
+                <div>
+                    <p class="about-text">Это современный лофт-проект для компаний, пар, семей и детей, где можно качественно и разнообразно провести досуг в любой день недели.</p>
+                    <ul class="bullets">
+                        <li>
+                            <div class="bullet-icon"><i class="fas fa-expand-alt"></i></div>
+                            <div>
+                                <h3>Современное пространство 80 м²</h3>
+                                <p>Светлый лофт с профессиональной кухней и уютной зоной отдыха</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon"><i class="fas fa-utensils"></i></div>
+                            <div>
+                                <h3>Готовим / празднуем / общаемся</h3>
+                                <p>У нас есть всё для кулинарного творчества и теплого общения</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon"><i class="fas fa-lightbulb"></i></div>
+                            <div>
+                                <h3>Работаем под ваш повод, а не по шаблону</h3>
+                                <p>Можем реализовать практически любой запрос и создать уникальное событие</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="1.jpg" alt="Интерьер кулинарной студии Event Kitchen">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formats Section -->
+    <section id="formats" class="light-bg">
+        <div class="container">
+            <h2 class="section-title">Выберите свой повод</h2>
+            <p class="section-subtitle">Широкий спектр форматов для любых событий и праздников</p>
+            
+            <div class="formats-grid">
+                <!-- Карточки форматов будут добавлены через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section id="steps">
+        <div class="container">
+            <h2 class="section-title">Как всё проходит</h2>
+            <p class="section-subtitle">Простой путь от идеи до незабываемого события</p>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Оставляете заявку</h3>
+                    <p>Расскажите нам о вашем поводе через форму, телефон или мессенджер</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Обсуждаем детали</h3>
+                    <p>Мы уточняем формат, меню, бюджет и все важные для вас нюансы</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Приходите и отдыхаете</h3>
+                    <p>В назначенный день вы приходите и наслаждаетесь событием, всё остальное мы берём на себя</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#contacts" class="btn btn-small">Задать вопрос</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="light-bg">
+        <div class="container">
+            <h2 class="section-title">Цены и отзывы</h2>
+            <p class="section-subtitle">Прозрачные цены и мнения наших гостей</p>
+            
+            <div class="pricing-container">
+                <div>
+                    <div class="price-cards">
+                        <div class="price-card">
+                            <h3 class="price-title">Детские праздники</h3>
+                            <div class="price-amount">от 15 000 ₽</div>
+                            <p class="price-note">за 3-х часовое мероприятие для 10 детей</p>
+                        </div>
+                        <div class="price-card">
+                            <h3 class="price-title">Вечеринки с друзьями</h3>
+                            <div class="price-amount">от 20 000 ₽</div>
+                            <p class="price-note">за 4 часа для компании до 15 человек</p>
+                        </div>
+                        <div class="price-card">
+                            <h3 class="price-title">Корпоративы</h3>
+                            <div class="price-amount">от 30 000 ₽</div>
+                            <p class="price-note">тимбилдинг или праздник для коллектива</p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="#booking" class="btn">Получить точный расчёт под ваш повод</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Очень хорошее место, рекомендую! Дети были в восторге от мастер-класса по пицце, а родители смогли пообщаться в уютной зоне. Всё продумано до мелочей!"</p>
+                        <p class="testimonial-author">— Анна, мама именинницы</p>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Все очень понравилось, прекрасная организация мероприятий. Заказывали кулинарный тимбилдинг для отдела, команда сплотилась за приготовлением ужина. Очень рекомендую!"</p>
+                        <p class="testimonial-author">— Дмитрий, руководитель отдела</p>
+                    </div>
+                    
+                    <div class="gallery-preview">
+                        <img src="2.jpg" alt="Кулинарный мастер-класс">
+                        <img src="3.jpg" alt="День рождения в студии">
+                        <img src="4.jpg" alt="Корпоративное мероприятие">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">Галерея</h2>
+            <p class="section-subtitle">Посмотрите, как выглядят наши мероприятия</p>
+            
+            <div class="gallery-slider">
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <!-- Слайды будут добавлены через JavaScript -->
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <!-- Навигация будет добавлена через JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts & Booking Section -->
+    <section id="contacts" class="light-bg">
+        <div class="container">
+            <h2 class="section-title">Контакты и бронирование</h2>
+            <p class="section-subtitle">Свяжитесь с нами, чтобы обсудить ваше мероприятие</p>
+            
+            <div class="contacts-container">
+                <div>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <div>
+                                <h3>Адрес</h3>
+                                <p>г. Москва, ул. Кулинарная, д. 15<br>Метро «Парк культуры»</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <div>
+                                <h3>Телефон</h3>
+                                <p><a href="tel:+71231233333">+7 (123) 123-33-33</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <div>
+                                <h3>Часы работы</h3>
+                                <p>Ежедневно с 10:00 до 23:00</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-comments contact-icon"></i>
+                            <div>
+                                <h3>Мессенджеры</h3>
+                                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                                    <a href="https://wa.me/71231233333" class="btn btn-small btn-secondary"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                    <a href="https://t.me/some_link" class="btn btn-small btn-secondary"><i class="fab fa-telegram"></i> Telegram</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            Карта: г. Москва, ул. Кулинарная, д. 15
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-form" id="booking">
+                    <h3 style="margin-bottom: 25px;">Форма бронирования</h3>
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="name">Имя *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="occasion">Тип повода</label>
+                            <select id="occasion" class="form-control">
+                                <option value="">Выберите вариант</option>
+                                <option value="party">Вечеринка с друзьями</option>
+                                <option value="date">Свидание / ужин для двоих</option>
+                                <option value="birthday">День рождения взрослый</option>
+                                <option value="kids">Детский праздник</option>
+                                <option value="corporate">Корпоратив / тимбилдинг</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Желаемая дата</label>
+                            <input type="date" id="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Комментарий</label>
+                            <textarea id="comment" class="form-control" rows="4" placeholder="Количество гостей, особые пожелания..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Забронировать / узнать свободное время</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы</h2>
+            <p class="section-subtitle">Ответы на популярные вопросы наших гостей</p>
+            
+            <div class="faq-container">
+                <!-- FAQ будет добавлен через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brandbook Button Section -->
+    <section id="brandbook-section" class="light-bg" style="padding: 40px 0;">
+        <div class="container">
+            <div style="text-align: center;">
+                <a href="Creative Kitchen.pdf" class="btn btn-outline" download style="display: inline-flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-book"></i>
+                    Скачать брендбук (PDF)
+                </a>
+                <p style="margin-top: 15px; color: var(--gray-medium); font-size: 14px;">
+                    Официальный брендбук Event Kitchen
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <a href="#" class="footer-logo">Event <span>Kitchen</span></a>
+                    <p>Современная кулинарная студия для праздников, мастер-классов и особых поводов в Москве.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Быстрые ссылки</h4>
+                    <div class="footer-links">
+                        <a href="#about">О студии</a>
+                        <a href="#formats">Форматы мероприятий</a>
+                        <a href="#pricing">Цены</a>
+                        <a href="#gallery">Галерея</a>
+                        <a href="#contacts">Контакты</a>
+                        <a href="#faq">Вопросы и ответы</a>
+                        <a href="Creative Kitchen.pdf" download>Брендбук (PDF)</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Партнёрам</h4>
+                    <div class="footer-links">
+                        <a href="#" id="partners-link">Организаторам и партнёрам</a>
+                        <a href="#">Аренда студии для мероприятий</a>
+                        <a href="#">Сотрудничество с шефами</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Документы</h4>
+                    <div class="footer-links">
+                        <a href="#">Публичная оферта</a>
+                        <a href="#">Политика конфиденциальности</a>
+                        <a href="#">Пользовательское соглашение</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 Кулинарная студия Event Kitchen. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal для форматов -->
+    <div class="modal" id="formatModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 class="modal-title" id="modalTitle">Название формата</h3>
+            <div id="modalContent">
+                <!-- Содержимое модального окна -->
+            </div>
+            <div style="margin-top: 30px;">
+                <a href="#booking" class="btn" id="modalBooking">Запросить расчёт</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal для партнёров -->
+    <div class="modal" id="partnersModal">
+        <div class="modal-content">
+            <button class="modal-close" id="partnersModalClose">&times;</button>
+            <h3 class="modal-title">Информация для организаторов и партнёров</h3>
+            <div>
+                <p>Мы открыты к сотрудничеству с event-агентствами, организаторами праздников, корпоративными клиентами и шеф-поварами.</p>
+                
+                <h4 style="margin: 25px 0 15px;">Что мы предлагаем партнёрам:</h4>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 10px;">Специальные условия аренды студии для регулярных мероприятий</li>
+                    <li style="margin-bottom: 10px;">Комиссию за привлечённых клиентов</li>
+                    <li style="margin-bottom: 10px;">Возможность проводить собственные мастер-классы и мероприятия</li>
+                    <li style="margin-bottom: 10px;">Совместные проекты и кросс-маркетинг</li>
+                </ul>
+                
+                <p>Для обсуждения условий сотрудничества оставьте заявку через форму бронирования, указав в комментарии "Для партнёрства", или свяжитесь с нами по телефону <a href="tel:+71231233333">+7 (123) 123-33-33</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
