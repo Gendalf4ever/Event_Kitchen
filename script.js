@@ -3,7 +3,7 @@ const formats = [
     {
         title: "Вечеринка с друзьями",
         desc: "Неформальна встреча с кулинарным мастер классом от 4х до 15 ти человек",
-        image: "formats/party.PNG",
+        image: "formats/party.jpg",
         details: "Идеально для встречи с друзьями, которым надоели бары и рестораны. Вы вместе готовите ужин под руководством шефа, а потом наслаждаетесь результатом в уютной атмосфере. В стоимость входят продукты, работа шефа, аренда студии и уборка."
     },
     {
@@ -39,7 +39,7 @@ const formats = [
     {
         title: "Корпоратив / тимбилдинг",
         desc: "Кулинарный тимбилдинг для укрепления командного духа",
-        image: "formats/corporate.PNG",
+        image: "formats/corporate.jpg",
         details: "Эффективный и вкусный тимбилдинг. Коллеги делятся на команды, готовят блюда на скорость или по сложности, а потом вместе ужинают. Развивает коммуникацию, распределение ролей и работу в команде."
     },
     {
@@ -51,7 +51,7 @@ const formats = [
     {
         title: "Аренда студии",
         desc: "Самостоятельное использование пространства для вашего мероприятия",
-        image: "formats/rental.PNG",
+        image: "formats/slider/4.jpg",
         details: "Если у вас свой шеф, организатор или вы хотите провести мероприятие самостоятельно. Мы предоставляем полностью оборудованную кухню, зону отдыха, посуду и технику. Поможем с базовой подготовкой пространства."
     }
 ];
@@ -88,27 +88,23 @@ const faqItems = [
     }
 ];
 
-// Данные для галереи
+// Данные для галереи - загружаем из папки formats/slider
 const gallerySlides = [
     {
-        image: "1.jpg",
-        title: "Интерьер студии"
+        image: "formats/slider/1.jpg",
+        title: "Интерьер студии 1"
     },
     {
-        image: "2.jpg",
-        title: "Кулинарный мастер-класс"
+        image: "formats/slider/2.jpg",
+        title: "Интерьер студии 2"
     },
     {
-        image: "3.jpg",
-        title: "День рождения в студии"
+        image: "formats/slider/3.jpg",
+        title: "Интерьер студии 3"
     },
     {
-        image: "4.jpg",
-        title: "Корпоративное мероприятие"
-    },
-    {
-        image: "5.jpg",
-        title: "Детский праздник"
+        image: "formats/slider/4.jpg",
+        title: "Интерьер студии 4"
     }
 ];
 
@@ -173,6 +169,10 @@ function initGallery() {
     
     if (!sliderTrack || !sliderNav) return;
     
+    // Очищаем контейнеры перед добавлением
+    sliderTrack.innerHTML = '';
+    sliderNav.innerHTML = '';
+    
     gallerySlides.forEach((slide, index) => {
         // Слайд
         const slideDiv = document.createElement('div');
@@ -200,6 +200,7 @@ function initGallery() {
     const dots = document.querySelectorAll('.slider-dot');
     
     function goToSlide(index) {
+        if (!sliderTrack) return;
         if (index >= slides.length) index = 0;
         if (index < 0) index = slides.length - 1;
         
@@ -207,20 +208,21 @@ function initGallery() {
         
         // Обновляем активную точку
         dots.forEach(dot => dot.classList.remove('active'));
-        dots[index].classList.add('active');
+        if (dots[index]) dots[index].classList.add('active');
         
         currentSlide = index;
     }
-    
-    // Автопрокрутка слайдера
+
     if (slides.length > 0) {
         setInterval(() => {
             goToSlide(currentSlide + 1);
         }, 5000);
     }
+
+    window.goToSlide = goToSlide;
 }
 
-// Функция для инициализации модальных окон
+
 function initModals() {
     const formatModal = document.getElementById('formatModal');
     const modalClose = document.getElementById('modalClose');
@@ -229,8 +231,7 @@ function initModals() {
     const modalBooking = document.getElementById('modalBooking');
     
     if (!formatModal || !modalClose || !modalTitle || !modalContent || !modalBooking) return;
-    
-    // Открытие модального окна при клике на "Подробнее"
+
     document.querySelectorAll('.format-details').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -245,12 +246,12 @@ function initModals() {
         });
     });
     
-    // Закрытие модального окна
+
     modalClose.addEventListener('click', function() {
         formatModal.classList.remove('active');
     });
     
-    // Закрытие при клике вне модального окна
+
     formatModal.addEventListener('click', function(e) {
         if (e.target === this) {
             formatModal.classList.remove('active');
@@ -288,11 +289,8 @@ function initBookingForm() {
     bookingForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // В реальном проекте здесь был бы AJAX-запрос к серверу
         alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время для уточнения деталей.');
         bookingForm.reset();
-        
-        // Прокрутка к верху страницы
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
@@ -331,6 +329,26 @@ function initSmoothScroll() {
     });
 }
 
+// Функция для обновления превью галереи
+function updateGalleryPreview() {
+    const galleryPreview = document.querySelector('.gallery-preview');
+    if (galleryPreview) {
+        // Обновляем пути к изображениям в превью
+        const previewImages = galleryPreview.querySelectorAll('img');
+        const previewPaths = [
+            'formats/slider/2.jpg',
+            'formats/slider/3.jpg', 
+            'formats/slider/4.jpg'
+        ];
+        
+        previewImages.forEach((img, index) => {
+            if (index < previewPaths.length) {
+                img.src = previewPaths[index];
+            }
+        });
+    }
+}
+
 // Главная функция инициализации
 function init() {
     initFormats();
@@ -339,8 +357,7 @@ function init() {
     initModals();
     initBookingForm();
     initSmoothScroll();
-    
-    console.log('Event Kitchen лендинг успешно инициализирован!');
+    updateGalleryPreview();
 }
 
 // Инициализация при загрузке страницы

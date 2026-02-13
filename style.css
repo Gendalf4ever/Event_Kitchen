@@ -154,8 +154,13 @@ header {
 }
 
 .logo-img {
-    height: 40px;
+    height: 60px;
     width: auto;
+    transition: var(--transition);
+}
+
+.logo-img:hover {
+    transform: scale(1.02);
 }
 
 .header-contacts {
@@ -523,7 +528,7 @@ header {
     box-shadow: var(--shadow);
 }
 
-.contact-icon {
+.contact-item .contact-icon {
     color: var(--terracotta);
     font-size: 24px;
     flex-shrink: 0;
@@ -898,4 +903,59 @@ footer {
     .brandbook-item {
         padding: 20px;
     }
+}
+
+/* MAX иконка */
+.fa-max {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('Max_logo_2025.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fa-max:before {
+    content: "" !important;
+    display: none !important;
+}
+
+.header-contacts .fa-max {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-secondary .fa-max {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+/* Instagram иконка */
+.fa-instagram:before {
+    content: "\f16d";
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+.fa-instagram-icon:before {
+    content: "\f16d";
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+/* Telegram иконка */
+.fa-telegram:before {
+    content: "\f2c6";
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+/* Phone иконка */
+.fa-phone:before {
+    content: "\f095";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
