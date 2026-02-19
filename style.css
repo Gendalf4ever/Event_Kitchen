@@ -959,3 +959,163 @@ footer {
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
 }
+/*конфетти*/
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0.2;
+    }
+}
+
+.minimal-confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--terracotta);
+    opacity: 0.5;
+    animation: confetti-fall 10s linear infinite;
+}
+
+/* Разные формы конфетти */
+.confetti-piece:nth-child(1) {
+    left: 10%;
+    width: 12px;
+    height: 12px;
+    background: #FFD700;
+    border-radius: 0;
+    animation-duration: 12s;
+    animation-delay: 0s;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.confetti-piece:nth-child(2) {
+    left: 25%;
+    width: 8px;
+    height: 8px;
+    background: #A05A44;
+    border-radius: 50%;
+    animation-duration: 8s;
+    animation-delay: 1s;
+}
+
+.confetti-piece:nth-child(3) {
+    left: 40%;
+    width: 15px;
+    height: 15px;
+    background: #4ECDC4;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation-duration: 15s;
+    animation-delay: 2s;
+}
+
+.confetti-piece:nth-child(4) {
+    left: 55%;
+    width: 6px;
+    height: 12px;
+    background: #FF9F1C;
+    border-radius: 0;
+    animation-duration: 9s;
+    animation-delay: 3s;
+}
+
+.confetti-piece:nth-child(5) {
+    left: 70%;
+    width: 14px;
+    height: 14px;
+    background: #A05A44;
+    border-radius: 2px;
+    animation-duration: 11s;
+    animation-delay: 4s;
+    transform: rotate(45deg);
+}
+
+.confetti-piece:nth-child(6) {
+    left: 85%;
+    width: 9px;
+    height: 9px;
+    background: #FF6B6B;
+    border-radius: 50%;
+    animation-duration: 13s;
+    animation-delay: 0.5s;
+}
+
+.confetti-piece:nth-child(7) {
+    left: 15%;
+    width: 11px;
+    height: 11px;
+    background: #FFD700;
+    border-radius: 0;
+    animation-duration: 10s;
+    animation-delay: 1.5s;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.confetti-piece:nth-child(8) {
+    left: 65%;
+    width: 7px;
+    height: 14px;
+    background: #4ECDC4;
+    border-radius: 0;
+    animation-duration: 14s;
+    animation-delay: 2.5s;
+}
+
+.confetti-piece:nth-child(9) {
+    left: 35%;
+    width: 16px;
+    height: 16px;
+    background: #A05A44;
+    border-radius: 50%;
+    animation-duration: 16s;
+    animation-delay: 3.5s;
+    opacity: 0.3;
+}
+
+.confetti-piece:nth-child(10) {
+    left: 92%;
+    width: 8px;
+    height: 8px;
+    background: #FF9F1C;
+    border-radius: 2px;
+    animation-duration: 7s;
+    animation-delay: 0.2s;
+    transform: rotate(15deg);
+}
+
+/* Праздничный фон для hero секции */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+    animation: rotate 30s linear infinite;
+    z-index: 1;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
