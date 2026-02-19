@@ -19,8 +19,9 @@
     box-sizing: border-box;
 }
 
+/* Убираем scroll-behavior из CSS, используем JS для плавной прокрутки */
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; - отключено для предотвращения конфликта с JS */
 }
 
 body {
@@ -53,11 +54,12 @@ section {
     background-color: var(--gray-extra-light);
 }
 
+/* ОСНОВНЫЕ СТИЛИ ДЛЯ КНОПОК - УСИЛЕНЫ */
 .btn {
     display: inline-block;
     padding: 14px 32px;
     background-color: var(--terracotta);
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
     border-radius: var(--border-radius);
     font-family: 'Avenir', 'Montserrat', sans-serif;
@@ -68,6 +70,7 @@ section {
     font-size: 16px;
     text-align: center;
     border: 2px solid var(--terracotta);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
@@ -84,17 +87,68 @@ section {
 .btn-outline {
     background-color: transparent;
     border: 2px solid var(--terracotta);
-    color: var(--terracotta);
+    color: var(--terracotta) !important;
 }
 
 .btn-outline:hover {
     background-color: var(--terracotta);
+    color: var(--white) !important;
+}
+
+/* СПЕЦИАЛЬНЫЕ СТИЛИ ДЛЯ КНОПОК В HERO СЕКЦИИ */
+.hero .btn,
+.hero .btn-outline {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero .btn {
+    background-color: var(--terracotta);
+    color: var(--white) !important;
+}
+
+.hero .btn-outline {
+    background-color: transparent;
+    color: var(--white) !important;
+    border-color: var(--white);
+}
+
+.hero .btn-outline:hover {
+    background-color: var(--white);
+    color: var(--terracotta) !important;
+    border-color: var(--white);
+}
+
+/* Стили для второй кнопки в hero (не btn-outline) */
+.hero-buttons a:last-child {
+    color: var(--white) !important;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed var(--white);
+    padding-bottom: 2px;
+}
+
+/* Если это не btn-outline, а просто ссылка */
+.hero-buttons a:last-child:not(.btn):not(.btn-outline) {
     color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed var(--white);
+    padding-bottom: 2px;
+}
+
+.hero-buttons a:last-child:hover:not(.btn):not(.btn-outline) {
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
 .btn-secondary {
     background-color: var(--gray-dark);
     border-color: var(--gray-dark);
+    color: var(--white) !important;
 }
 
 .btn-secondary:hover {
@@ -196,17 +250,35 @@ header {
     display: flex;
     align-items: center;
     padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+    animation: rotate 30s linear infinite;
+    z-index: 1;
 }
 
 .hero-content {
     max-width: 800px;
     padding: 40px 0;
+    position: relative;
+    z-index: 10;
 }
 
 .hero h1 {
     font-size: 48px;
     margin-bottom: 20px;
     color: var(--white);
+    position: relative;
+    z-index: 10;
 }
 
 .hero p {
@@ -214,6 +286,8 @@ header {
     margin-bottom: 40px;
     max-width: 600px;
     color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 10;
 }
 
 .hero-buttons {
@@ -221,14 +295,16 @@ header {
     gap: 20px;
     flex-wrap: wrap;
     align-items: center;
+    position: relative;
+    z-index: 10;
 }
 
-.hero-buttons a:last-child {
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px dashed var(--white);
-    padding-bottom: 2px;
+/* Убеждаемся, что кнопки кликабельны */
+.hero-buttons a {
+    position: relative;
+    z-index: 20;
+    cursor: pointer;
+    pointer-events: auto;
 }
 
 /* About Section */
@@ -959,7 +1035,8 @@ footer {
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
 }
-/*конфетти*/
+
+/* конфетти */
 @keyframes confetti-fall {
     0% {
         transform: translateY(-10vh) rotate(0deg);
@@ -1098,23 +1175,6 @@ footer {
 }
 
 /* Праздничный фон для hero секции */
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
-    animation: rotate 30s linear infinite;
-    z-index: 1;
-}
-
 @keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }

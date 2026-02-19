@@ -222,7 +222,6 @@ function initGallery() {
     window.goToSlide = goToSlide;
 }
 
-
 function initModals() {
     const formatModal = document.getElementById('formatModal');
     const modalClose = document.getElementById('modalClose');
@@ -235,6 +234,7 @@ function initModals() {
     document.querySelectorAll('.format-details').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const title = this.getAttribute('data-title');
             const details = this.getAttribute('data-details');
             
@@ -266,6 +266,7 @@ function initModals() {
     if (partnersLink && partnersModal && partnersModalClose) {
         partnersLink.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             partnersModal.classList.add('active');
         });
         
@@ -295,41 +296,55 @@ function initBookingForm() {
     });
 }
 
-// Функция для инициализации плавной прокрутки
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                e.preventDefault();
-                
-                // Закрываем модальные окна если они открыты
-                const formatModal = document.getElementById('formatModal');
-                const partnersModal = document.getElementById('partnersModal');
-                
-                if (formatModal) formatModal.classList.remove('active');
-                if (partnersModal) partnersModal.classList.remove('active');
-                
-                // Прокрутка к элементу
-                const header = document.querySelector('header');
-                const headerHeight = header ? header.offsetHeight : 0;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+// НОВАЯ ПРОСТАЯ ФУНКЦИЯ ДЛЯ ПРОКРУТКИ
+function handleAnchorClick(e) {
+    const href = this.getAttribute('href');
+    
+    // Игнорируем пустые ссылки и ссылки на модальные окна
+    if (href === '#' || href === '#formatModal' || href === '#partnersModal') {
+        return;
+    }
+    
+    const targetElement = document.querySelector(href);
+    
+    if (targetElement) {
+        e.preventDefault(); 
+        e.stopPropagation(); 
+        
+        // Закрываем модальные окна
+        const formatModal = document.getElementById('formatModal');
+        const partnersModal = document.getElementById('partnersModal');
+        if (formatModal) formatModal.classList.remove('active');
+        if (partnersModal) partnersModal.classList.remove('active');
+        
+        // Вычисляем позицию с учетом высоты шапки
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetPosition = targetElement.offsetTop - headerHeight;
+        
+        // Плавно прокручиваем
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
         });
-    });
+        
+        // Обновляем URL без перезагрузки страницы
+        history.pushState(null, null, href);
+    }
 }
 
-// Функция для обновления превью галереи
+function initSmoothScroll() {
+    console.log('Инициализация обработчиков прокрутки...');
+
+    const allLinks = document.querySelectorAll('a[href^="#"]');
+    console.log('Найдено ссылок:', allLinks.length);
+    
+
+    allLinks.forEach(link => {
+        link.removeEventListener('click', handleAnchorClick);
+        link.addEventListener('click', handleAnchorClick);
+    });
+}
 function updateGalleryPreview() {
     const galleryPreview = document.querySelector('.gallery-preview');
     if (galleryPreview) {
@@ -349,16 +364,76 @@ function updateGalleryPreview() {
     }
 }
 
+// Функция для проверки наличия элементов при загрузке
+function checkElements() {
+    console.log('Проверка элементов:');
+    console.log('- #booking:', document.querySelector('#booking') ? '✅ найден' : '❌ не найден');
+    console.log('- #formats:', document.querySelector('#formats') ? '✅ найден' : '❌ не найден');
+    console.log('- #about:', document.querySelector('#about') ? '✅ найден' : '❌ не найден');
+    console.log('- #contacts:', document.querySelector('#contacts') ? '✅ найден' : '❌ не найден');
+}
+
 // Главная функция инициализации
 function init() {
+    console.log('Инициализация сайта...');
+    
     initFormats();
     initFAQ();
     initGallery();
     initModals();
     initBookingForm();
-    initSmoothScroll();
+    initSmoothScroll(); // Инициализируем прокрутку
     updateGalleryPreview();
+    
+    // Проверяем наличие элементов
+    setTimeout(checkElements, 500);
+    
+    // Обрабатываем якорь в URL при загрузке
+    if (window.location.hash) {
+        setTimeout(() => {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                window.scrollTo({
+                    top: targetElement.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }, 500);
+    }
 }
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', init);
+
+// Дополнительная инициализация после полной загрузки
+window.addEventListener('load', function() {
+    console.log('Страница полностью загружена');
+    checkElements();
+    
+    // Повторно инициализируем обработчики прокрутки
+    // на случай, если появились новые динамические элементы
+    setTimeout(() => {
+        initSmoothScroll();
+    }, 1000);
+});
+
+// Добавляем обработчик на динамически создаваемые элементы
+// (например, карточки форматов)
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length > 0) {
+            // Если появились новые элементы, обновляем обработчики
+            setTimeout(() => {
+                initSmoothScroll();
+            }, 100);
+        }
+    });
+});
+
+// Наблюдаем за изменениями в DOM
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
