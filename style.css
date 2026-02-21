@@ -1,11 +1,11 @@
 :root {
-    --terracotta: #A05A44;        /* Терракотовый */
-    --terracotta-dark: #8B4C3A;   /* Темнее терракотовый */
-    --terracotta-light: #B5725C;  /* Светлее терракотовый */
-    --gray-dark: #4A4A4A;         /* Темно-серый */
-    --gray-medium: #707070;       /* Средний серый */
-    --gray-light: #F5F5F5;        /* Светло-серый */
-    --gray-extra-light: #FAFAFA;  /* Очень светлый серый */
+    --terracotta: #A05A44;        
+    --terracotta-dark: #8B4C3A;   
+    --terracotta-light: #B5725C;  
+    --gray-dark: #4A4A4A;         
+    --gray-medium: #707070;      
+    --gray-light: #F5F5F5;       
+    --gray-extra-light: #FAFAFA;
     --white: #FFFFFF;
     --black: #333333;
     --transition: all 0.3s ease;
@@ -19,10 +19,7 @@
     box-sizing: border-box;
 }
 
-/* Убираем scroll-behavior из CSS, используем JS для плавной прокрутки */
-html {
-    /* scroll-behavior: smooth; - отключено для предотвращения конфликта с JS */
-}
+
 
 body {
     font-family: 'Avenir', 'Montserrat', sans-serif;
@@ -54,7 +51,7 @@ section {
     background-color: var(--gray-extra-light);
 }
 
-/* ОСНОВНЫЕ СТИЛИ ДЛЯ КНОПОК - УСИЛЕНЫ */
+
 .btn {
     display: inline-block;
     padding: 14px 32px;
@@ -95,7 +92,7 @@ section {
     color: var(--white) !important;
 }
 
-/* СПЕЦИАЛЬНЫЕ СТИЛИ ДЛЯ КНОПОК В HERO СЕКЦИИ */
+
 .hero .btn,
 .hero .btn-outline {
     position: relative;
@@ -122,7 +119,7 @@ section {
     border-color: var(--white);
 }
 
-/* Стили для второй кнопки в hero (не btn-outline) */
+
 .hero-buttons a:last-child {
     color: var(--white) !important;
     text-decoration: none;
@@ -131,7 +128,6 @@ section {
     padding-bottom: 2px;
 }
 
-/* Если это не btn-outline, а просто ссылка */
 .hero-buttons a:last-child:not(.btn):not(.btn-outline) {
     color: var(--white);
     text-decoration: none;
@@ -171,7 +167,6 @@ section {
     margin: 0 auto 50px;
 }
 
-/* Header */
 header {
     position: fixed;
     top: 0;
@@ -241,7 +236,6 @@ header {
     font-size: 18px;
 }
 
-/* Hero Section */
 .hero {
     background: linear-gradient(rgba(74, 74, 74, 0.7), rgba(74, 74, 74, 0.7)), 
                 url('1.jpg') no-repeat center center/cover;
@@ -299,7 +293,6 @@ header {
     z-index: 10;
 }
 
-/* Убеждаемся, что кнопки кликабельны */
 .hero-buttons a {
     position: relative;
     z-index: 20;
@@ -307,7 +300,6 @@ header {
     pointer-events: auto;
 }
 
-/* About Section */
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -355,7 +347,7 @@ header {
     box-shadow: var(--shadow);
 }
 
-/* Formats Section */
+
 .formats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -410,7 +402,7 @@ header {
     align-items: center;
 }
 
-/* Steps Section */
+
 .steps-container {
     display: flex;
     justify-content: space-between;
@@ -453,7 +445,7 @@ header {
     color: var(--gray-medium);
 }
 
-/* Pricing Section */
+
 .pricing-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -536,7 +528,6 @@ header {
     border-color: var(--terracotta);
 }
 
-/* Gallery Section */
 .gallery-slider {
     position: relative;
     max-width: 900px;
@@ -581,7 +572,7 @@ header {
     background-color: var(--terracotta);
 }
 
-/* Contacts Section */
+
 .contacts-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -665,7 +656,7 @@ header {
     box-shadow: 0 0 0 3px rgba(160, 90, 68, 0.1);
 }
 
-/* FAQ Section */
+
 .faq-container {
     max-width: 800px;
     margin: 0 auto;
@@ -717,7 +708,7 @@ header {
     transform: rotate(45deg);
 }
 
-/* Footer */
+tr
 footer {
     background-color: var(--gray-dark);
     color: var(--white);
@@ -770,7 +761,6 @@ footer {
     font-size: 14px;
 }
 
-/* Brand Book Section */
 .brandbook-section {
     background-color: var(--white);
     padding: 100px 0;
@@ -906,7 +896,6 @@ footer {
     color: var(--gray-dark);
 }
 
-/* Responsive */
 @media (max-width: 992px) {
     .about-content,
     .pricing-container,
@@ -1068,7 +1057,7 @@ footer {
     animation: confetti-fall 10s linear infinite;
 }
 
-/* Разные формы конфетти */
+
 .confetti-piece:nth-child(1) {
     left: 10%;
     width: 12px;
@@ -1174,7 +1163,6 @@ footer {
     transform: rotate(15deg);
 }
 
-/* Праздничный фон для hero секции */
 @keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
