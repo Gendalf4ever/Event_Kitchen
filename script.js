@@ -88,7 +88,6 @@ const faqItems = [
     }
 ];
 
-// Данные для галереи - загружаем из папки formats/slider
 const gallerySlides = [
     {
         image: "formats/slider/1.jpg",
@@ -108,16 +107,19 @@ const gallerySlides = [
     }
 ];
 
-// Функция для инициализации форматов мероприятий
 function initFormats() {
     const formatsGrid = document.querySelector('.formats-grid');
     if (!formatsGrid) return;
+    formatsGrid.innerHTML = '';
     
     formats.forEach(format => {
         const card = document.createElement('div');
         card.className = 'format-card';
+        card.setAttribute('data-format', format.title);
+        const imgPath = format.image;
+        
         card.innerHTML = `
-            <div class="format-img" style="background-image: url('${format.image}')"></div>
+            <div class="format-img" style="background-image: url('${imgPath}'); background-size: cover; background-position: center;" role="img" aria-label="${format.title}"></div>
             <div class="format-content">
                 <h3 class="format-title">${format.title}</h3>
                 <p class="format-desc">${format.desc}</p>
@@ -129,9 +131,185 @@ function initFormats() {
         `;
         formatsGrid.appendChild(card);
     });
+
+    initFormatsScrollIndicators();
+    initModals();
 }
 
-// Функция для инициализации FAQ
+function initFormatsScrollIndicators() {
+    const formatsGrid = document.querySelector('.formats-grid');
+    if (!formatsGrid) return;
+    
+    if (document.querySelector('.scroll-indicators')) return;
+    
+    const navContainer = document.createElement('div');
+    navContainer.className = 'formats-navigation';
+    
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'format-nav-btn prev-btn';
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.setAttribute('aria-label', 'Предыдущие форматы');
+    
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'format-nav-btn next-btn';
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.setAttribute('aria-label', 'Следующие форматы');
+    
+    navContainer.appendChild(prevBtn);
+    navContainer.appendChild(nextBtn);
+    
+    const formatsSection = document.getElementById('formats');
+    const container = formatsSection.querySelector('.container');
+    const subtitle = container.querySelector('.section-subtitle');
+    
+    if (subtitle) {
+        subtitle.insertAdjacentElement('afterend', navContainer);
+    } else {
+        container.insertBefore(navContainer, formatsGrid);
+    }
+    
+    const indicatorsContainer = document.createElement('div');
+    indicatorsContainer.className = 'scroll-indicators';
+    
+    const cards = document.querySelectorAll('.format-card');
+    cards.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = 'scroll-dot' + (index === 0 ? ' active' : '');
+        dot.setAttribute('data-index', index);
+        dot.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            scrollToCard(index);
+        });
+        indicatorsContainer.appendChild(dot);
+    });
+    
+    formatsGrid.insertAdjacentElement('afterend', indicatorsContainer);
+    
+    function scrollToCard(index) {
+        const cards = document.querySelectorAll('.format-card');
+        if (cards[index]) {
+            cards[index].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            });
+        }
+    }
+    
+    function updateActiveDot() {
+        if (window.innerWidth > 768) return; // Только для мобильных
+        
+        const cards = document.querySelectorAll('.format-card');
+        const gridRect = formatsGrid.getBoundingClientRect();
+        const dots = document.querySelectorAll('.scroll-dot');
+        
+        let activeIndex = 0;
+        let minDistance = Infinity;
+        
+        cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const distance = Math.abs(cardRect.left - gridRect.left);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                activeIndex = index;
+            }
+        });
+        
+        dots.forEach((dot, index) => {
+            if (index === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        
+        if (prevBtn && nextBtn) {
+            prevBtn.classList.toggle('disabled', activeIndex === 0);
+            nextBtn.classList.toggle('disabled', activeIndex === cards.length - 1);
+        }
+    }
+    
+    prevBtn.addEventListener('click', function() {
+        if (this.classList.contains('disabled')) return;
+        
+        const cards = document.querySelectorAll('.format-card');
+        const gridRect = formatsGrid.getBoundingClientRect();
+        
+        let prevIndex = 0;
+        let minPositiveDistance = Infinity;
+        
+        cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const distance = cardRect.left - gridRect.left;
+            
+            if (distance < -5 && Math.abs(distance) < minPositiveDistance) {
+                minPositiveDistance = Math.abs(distance);
+                prevIndex = index;
+            }
+        });
+        
+        if (cards[prevIndex]) {
+            cards[prevIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            });
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (this.classList.contains('disabled')) return;
+        
+        const cards = document.querySelectorAll('.format-card');
+        const gridRect = formatsGrid.getBoundingClientRect();
+        
+        let nextIndex = cards.length - 1;
+        let minPositiveDistance = Infinity;
+        
+        cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const distance = cardRect.right - gridRect.right;
+            
+            if (distance > 5 && distance < minPositiveDistance) {
+                minPositiveDistance = distance;
+                nextIndex = index;
+            }
+        });
+        
+        if (cards[nextIndex]) {
+            cards[nextIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            });
+        }
+    });
+    
+    formatsGrid.addEventListener('scroll', () => {
+        requestAnimationFrame(updateActiveDot);
+    });
+    
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            if (navContainer) navContainer.style.display = 'none';
+            if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+        } else {
+            if (navContainer) navContainer.style.display = 'flex';
+            if (indicatorsContainer) indicatorsContainer.style.display = 'flex';
+            updateActiveDot();
+        }
+    });
+        setTimeout(() => {
+        if (window.innerWidth <= 768) {
+            updateActiveDot();
+        } else {
+            if (navContainer) navContainer.style.display = 'none';
+            if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+        }
+    }, 100);
+}
+
 function initFAQ() {
     const faqContainer = document.querySelector('.faq-container');
     if (!faqContainer) return;
@@ -149,8 +327,6 @@ function initFAQ() {
             </div>
         `;
         faqContainer.appendChild(faqItem);
-        
-        // Добавляем обработчик клика на вопрос
         const question = faqItem.querySelector('.faq-question');
         const answer = faqItem.querySelector('.faq-answer');
         const toggle = faqItem.querySelector('.faq-toggle');
@@ -162,39 +338,30 @@ function initFAQ() {
     });
 }
 
-// Функция для инициализации галереи
 function initGallery() {
     const sliderTrack = document.querySelector('.slider-track');
     const sliderNav = document.querySelector('.slider-nav');
     
     if (!sliderTrack || !sliderNav) return;
-    
-    // Очищаем контейнеры перед добавлением
     sliderTrack.innerHTML = '';
     sliderNav.innerHTML = '';
     
     gallerySlides.forEach((slide, index) => {
-        // Слайд
         const slideDiv = document.createElement('div');
         slideDiv.className = 'slide';
         slideDiv.style.backgroundImage = `url('${slide.image}')`;
         slideDiv.setAttribute('data-index', index);
         sliderTrack.appendChild(slideDiv);
-        
-        // Точка навигации
         const dot = document.createElement('div');
         dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
         dot.setAttribute('data-index', index);
         sliderNav.appendChild(dot);
-        
-        // Обработчик клика на точку
         dot.addEventListener('click', function() {
             const index = parseInt(this.getAttribute('data-index'));
             goToSlide(index);
         });
     });
     
-    // Настройка слайдера
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.slider-dot');
@@ -206,7 +373,6 @@ function initGallery() {
         
         sliderTrack.style.transform = `translateX(-${index * 100}%)`;
         
-        // Обновляем активную точку
         dots.forEach(dot => dot.classList.remove('active'));
         if (dots[index]) dots[index].classList.add('active');
         
@@ -257,8 +423,7 @@ function initModals() {
             formatModal.classList.remove('active');
         }
     });
-    
-    // Обработчики для партнёрского модального окна
+
     const partnersLink = document.getElementById('partners-link');
     const partnersModal = document.getElementById('partnersModal');
     const partnersModalClose = document.getElementById('partnersModalClose');
@@ -282,7 +447,6 @@ function initModals() {
     }
 }
 
-// Функция для инициализации формы бронирования
 function initBookingForm() {
     const bookingForm = document.getElementById('bookingForm');
     if (!bookingForm) return;
@@ -296,11 +460,9 @@ function initBookingForm() {
     });
 }
 
-// НОВАЯ ПРОСТАЯ ФУНКЦИЯ ДЛЯ ПРОКРУТКИ
 function handleAnchorClick(e) {
     const href = this.getAttribute('href');
     
-    // Игнорируем пустые ссылки и ссылки на модальные окна
     if (href === '#' || href === '#formatModal' || href === '#partnersModal') {
         return;
     }
@@ -310,25 +472,17 @@ function handleAnchorClick(e) {
     if (targetElement) {
         e.preventDefault(); 
         e.stopPropagation(); 
-        
-        // Закрываем модальные окна
         const formatModal = document.getElementById('formatModal');
         const partnersModal = document.getElementById('partnersModal');
         if (formatModal) formatModal.classList.remove('active');
         if (partnersModal) partnersModal.classList.remove('active');
-        
-        // Вычисляем позицию с учетом высоты шапки
         const header = document.querySelector('header');
         const headerHeight = header ? header.offsetHeight : 0;
         const targetPosition = targetElement.offsetTop - headerHeight;
-        
-        // Плавно прокручиваем
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
-        
-        // Обновляем URL без перезагрузки страницы
         history.pushState(null, null, href);
     }
 }
@@ -345,10 +499,10 @@ function initSmoothScroll() {
         link.addEventListener('click', handleAnchorClick);
     });
 }
+
 function updateGalleryPreview() {
     const galleryPreview = document.querySelector('.gallery-preview');
     if (galleryPreview) {
-        // Обновляем пути к изображениям в превью
         const previewImages = galleryPreview.querySelectorAll('img');
         const previewPaths = [
             'formats/slider/2.jpg',
@@ -364,31 +518,17 @@ function updateGalleryPreview() {
     }
 }
 
-// Функция для проверки наличия элементов при загрузке
-function checkElements() {
-    console.log('Проверка элементов:');
-    console.log('- #booking:', document.querySelector('#booking') ? '✅ найден' : '❌ не найден');
-    console.log('- #formats:', document.querySelector('#formats') ? '✅ найден' : '❌ не найден');
-    console.log('- #about:', document.querySelector('#about') ? '✅ найден' : '❌ не найден');
-    console.log('- #contacts:', document.querySelector('#contacts') ? '✅ найден' : '❌ не найден');
-}
-
 // Главная функция инициализации
 function init() {
-    console.log('Инициализация сайта...');
-    
-    initFormats();
+    initFormats(); 
     initFAQ();
     initGallery();
     initModals();
     initBookingForm();
-    initSmoothScroll(); // Инициализируем прокрутку
+    initSmoothScroll();
     updateGalleryPreview();
-    
-    // Проверяем наличие элементов
     setTimeout(checkElements, 500);
-    
-    // Обрабатываем якорь в URL при загрузке
+
     if (window.location.hash) {
         setTimeout(() => {
             const targetElement = document.querySelector(window.location.hash);
@@ -404,27 +544,19 @@ function init() {
     }
 }
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', init);
 
-// Дополнительная инициализация после полной загрузки
 window.addEventListener('load', function() {
     console.log('Страница полностью загружена');
     checkElements();
-    
-    // Повторно инициализируем обработчики прокрутки
-    // на случай, если появились новые динамические элементы
     setTimeout(() => {
         initSmoothScroll();
     }, 1000);
 });
 
-// Добавляем обработчик на динамически создаваемые элементы
-// (например, карточки форматов)
 const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         if (mutation.addedNodes.length > 0) {
-            // Если появились новые элементы, обновляем обработчики
             setTimeout(() => {
                 initSmoothScroll();
             }, 100);
