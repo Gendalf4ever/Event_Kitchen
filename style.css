@@ -82,6 +82,8 @@ section {
 .btn-small {
     padding: 10px 24px;
     font-size: 14px;
+    min-width: 130px;
+    text-align: center;
 }
 
 .btn-outline {
@@ -96,6 +98,7 @@ section {
 }
 
 
+/* ===== СТИЛИ ДЛЯ КНОПОК В HERO СЕКЦИИ ===== */
 .hero .btn,
 .hero .btn-outline {
     position: relative;
@@ -103,56 +106,66 @@ section {
     pointer-events: auto;
     opacity: 1;
     visibility: visible;
-    /* Исправление выравнивания */
+    /* Делаем кнопки идентичными по размеру и отступам */
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 14px 32px;  /* Возвращаем стандартный padding как у .btn */
+    font-size: 16px;
+    font-weight: 600;
     line-height: 1.2;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    box-sizing: border-box;
-    min-height: 48px;
+    border-radius: var(--border-radius);
+    border: 2px solid;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: auto; /* Убираем фиксированную высоту, пусть определяется padding'ом */
     white-space: nowrap;
+    transition: var(--transition);
 }
 
 .hero .btn {
     background-color: var(--terracotta);
     color: var(--white) !important;
+    border-color: var(--terracotta);
 }
 
+.hero .btn:hover {
+    background-color: var(--terracotta-dark);
+    border-color: var(--terracotta-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+/* Кнопка "Подобрать формат" — точная копия, но белая */
 .hero .btn-outline {
-    background-color: transparent;
-    color: var(--white) !important;
-    border-color: var(--white);
+    background-color: var(--white); /* Белая заливка */
+    color: var(--terracotta) !important; /* Терракотовый текст */
+    border-color: var(--white); /* Белая рамка */
 }
 
 .hero .btn-outline:hover {
-    background-color: var(--white);
-    color: var(--terracotta) !important;
+    background-color: var(--white); /* Оставляем белую на ховере */
+    color: var(--terracotta-dark) !important; /* Текст чуть темнее */
     border-color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
 }
 
-.hero-buttons a:last-child {
-    color: var(--white) !important;
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px dashed var(--white);
-    padding-bottom: 2px;
-}
-
-
+/* Убираем старые конфликтующие стили для hero-кнопок */
+.hero-buttons a:last-child,
 .hero-buttons a:last-child:not(.btn):not(.btn-outline) {
-    color: var(--white);
+    /* Эти стили больше не нужны, так как кнопка теперь имеет класс .btn-outline */
     text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px dashed var(--white);
-    padding-bottom: 2px;
+    border-bottom: none;
+    font-weight: 600;
+    color: inherit;
 }
 
 .hero-buttons a:last-child:hover:not(.btn):not(.btn-outline) {
-    color: rgba(255, 255, 255, 0.8);
-    border-bottom-color: rgba(255, 255, 255, 0.8);
+    color: inherit;
+    border-bottom: none;
 }
+/* ===== КОНЕЦ СТИЛЕЙ ДЛЯ HERO ===== */
+
 
 .btn-secondary {
     background-color: var(--gray-dark);
@@ -415,6 +428,22 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+}
+
+/* Делаем кнопки одинакового размера */
+.format-actions .btn {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.format-actions .btn-small {
+    min-width: 0;
+    width: auto;
 }
 
 
@@ -913,6 +942,7 @@ footer {
     color: var(--gray-dark);
 }
 
+/* Горизонтальный скролл для форматов на мобильных */
 @media (max-width: 768px) {
     .formats-grid {
         display: flex;
